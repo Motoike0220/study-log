@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\StudyRecord;
 use Illuminate\Http\Request;
 
-class SutdyRecordsController extends Controller
+class StudyRecordsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
+        $records = StudyRecord::paginate(10);
+        return view ('study_record.index', compact('records'));
     }
 
     /**

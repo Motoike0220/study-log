@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->tinyInteger('categoly_id');
-            $table->tinyInteger('user_id');
+            $table->foreign('user_id')->reference('id')->on('users');
             $table->text('content');
             $table->time('duration')->nullable();
             $table->tinyInteger('status')->nullable();;

@@ -9,12 +9,19 @@ class StudyRecord extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
         'title',
-        'email',
-        'url',
-        'gender',
-        'age',
-        'contact',
+        'categoly_id',
+        'user_id',
+        'content',
+        'duration',
+        'status',
+        'tag_id',
+        'start_time',
+        'end_time',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
