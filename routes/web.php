@@ -22,6 +22,20 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::prefix('study_record')
+->middleware(['auth'])//ミドルウェアで認証する
+->controller(StudyRecordsController::class)//同じコントローラーを使う
+->name('study_record.')//ルート名の頭が共通になる
+->group(function(){//グループ化
+    Route::get('/','index')->name('index');
+    Route::get('/create','create')->name('create');
+    Route::post('/','store')->name('store');
+    Route::get('/{id}','show')->name('show');
+    Route::get('/{id}/edit','edit')->name('edit');
+    Route::post('/{id}','update')->name('update');
+    Route::post('/{id}/destroy','destroy')->name('destroy');
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
