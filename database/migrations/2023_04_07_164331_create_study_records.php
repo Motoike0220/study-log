@@ -14,15 +14,17 @@ return new class extends Migration
         Schema::create('study_records', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->tinyInteger('categoly_id');
-            $table->foreign('user_id')->reference('id')->on('users');
+            $table->tinyInteger('category_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->text('content');
             $table->time('duration')->nullable();
-            $table->tinyInteger('status')->nullable();;
-            $table->tinyInteger('tag_id')->nullable();;
-            $table->time('start_time')->nullable();;
-            $table->time('end_time')->nullable();;
+            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('tag_id')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
             $table->timestamps();
+
         });
     }
 
