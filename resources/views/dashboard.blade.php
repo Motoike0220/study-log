@@ -12,6 +12,11 @@
                     <a href='{{route('study_record.index')}}'>{{ __("記録画面") }} </a>
                 </div>
             </div>
+
+            
+
         </div>
+
+
     </div>
 </x-app-layout>

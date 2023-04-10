@@ -12,8 +12,8 @@ class StudyRecordsController extends Controller
      */
     public function index()
     {
-        $records = StudyRecord::paginate(10);
-        return view ('study_record.index', compact('records'));
+        $post = StudyRecord::paginate(6);
+        return view ('study_record.index', compact('post'));
     }
 
     /**
@@ -21,7 +21,7 @@ class StudyRecordsController extends Controller
      */
     public function create()
     {
-        //
+        return view ('study_record.create');
     }
 
     /**
@@ -37,7 +37,10 @@ class StudyRecordsController extends Controller
      */
     public function show(StudyRecord $studyRecord)
     {
-        //
+
+            $studyRecord = StudyRecord::find($id);
+            return view('study_record.show', ['studyRecord' => $studyRecord]);
+
     }
 
     /**

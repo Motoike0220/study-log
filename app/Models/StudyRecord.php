@@ -10,7 +10,7 @@ class StudyRecord extends Model
     use HasFactory;
     protected $fillable = [
         'title',
-        'categoly_id',
+        'category_id',
         'user_id',
         'content',
         'duration',
@@ -22,6 +22,6 @@ class StudyRecord extends Model
 
     public function user()
     {
-        return $this->belongsTo(StudyRecord::class);
+        return $this->belongsTo(User::class);
     }
 }

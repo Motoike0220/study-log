@@ -17,15 +17,15 @@ class StudyRecordFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake(),
-            'categoly_id' => fake(),
+            'title' => fake()->text('20'),
+            'category_id' => fake()->numberBetween(1,10),
             'user_id' => fake()->numberBetween(1,10),
-            'content' => fake(), 
-            'duration' => fake(),
-            'status' => fake(),
-            'tag_id' => fake(),
-            'start_time' => fake(),
-            'end_time' => fake(),
+            'content' => fake()->text('100'),
+            'duration' => fake()->time(),
+            'status' => fake()->numberBetween(1,10),
+            'tag_id' => fake()->numberBetween(1,10),
+            'start_time' => fake()->time(),
+            'end_time' => fake()->time(),
         ];
     }
 }
