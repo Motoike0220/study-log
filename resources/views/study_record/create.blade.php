@@ -1,52 +1,45 @@
 <x-app-layout>
     <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('My Page') }}
-      </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Create a new post') }}
+        </h2>
     </x-slot>
-    <div class="flex justify-center">
-        <div class="w-full md:w-2/3 lg:w-1/2 bg-white shadow-md rounded-lg p-6 mt-8">
-          <form action="#" method="POST">
-            @csrf
-            <div class="mb-6">
-              <label for="title" class="block text-gray-700 font-bold mb-2">タイトル:</label>
-              <input type="text" name="title" id="title" class="border-2 border-gray-400 p-2 w-full rounded-md" required>
-            </div>
-            {{-- <div class="mb-6">
-              <label for="category_id" class="block text-gray-700 font-bold mb-2">カテゴリー:</label>
-              <select name="category_id" id="category_id" class="border-2 border-gray-400 p-2 w-full rounded-md" required>
-                <option value="" disabled selected>選択してください</option>
-                @foreach($categories as $category)
-                  <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-              </select>
-            </div> --}}
-            <div class="mb-6">
-              <label for="content" class="block text-gray-700 font-bold mb-2">内容:</label>
-              <textarea name="content" id="content" class="border-2 border-gray-400 p-2 w-full rounded-md" required></textarea>
-            </div>
-            <div class="mb-6">
-              <label for="duration" class="block text-gray-700 font-bold mb-2">学習時間:</label>
-              <input type="time" name="duration" id="duration" class="border-2 border-gray-400 p-2 w-full rounded-md">
-            </div>
-            <div class="mb-6">
-              <label for="status" class="block text-gray-700 font-bold mb-2">ステータス:</label>
-              <select name="status" id="status" class="border-2 border-gray-400 p-2 w-full rounded-md" required>
-                <option value="" disabled selected>選択してください</option>
-                <option value="0">未着手</option>
-                <option value="1">着手中</option>
-                <option value="2">完了</option>
-              </select>
-            </div>
-            <div class="mb-6">
-              <label for="tag_id" class="block text-gray-700 font-bold mb-2">タグ:</label>
-              <input type="text" name="tag_id" id="tag_id" class="border-2 border-gray-400 p-2 w-full rounded-md">
-            </div>
-            <div class="mb-6">
-              <label for="start_time" class="block text-gray-700 font-bold mb-2">開始時間:</label>
-              <input type="time" name="start_time" id="start_time" class="border-2 border-gray-400 p-2 w-full rounded-md">
-            </div>
-            <div class="mb-6">
-              <label for="end_time" class="block text-gray-700 font-bold mb-2">終了時間:</label>
 
-            </x-app-layout>
+    <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
+        <div class="mt-5 md:mt-0 md:col-span-2">
+            <form action="{{ route('study_record.store') }}" method="POST">
+                @csrf
+                <div class="shadow overflow-hidden sm:rounded-md">
+                    <div class="px-4 py-5 bg-white sm:p-6">
+                        <div class="grid grid-cols-6 gap-6">
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
+                                <input type="text" name="title" id="title" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                            </div>
+
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+                                <select id="category" name="category" autocomplete="category" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                                    <option>Technology</option>
+                                    <option>Business</option>
+                                    <option>Sports</option>
+                                </select>
+                            </div>
+
+                            <div class="col-span-6">
+                                <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+                                <textarea id="content" name="content" rows="5" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+                        <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Submit
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</x-app-layout>
+

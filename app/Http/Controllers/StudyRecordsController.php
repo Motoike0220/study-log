@@ -44,7 +44,26 @@ class StudyRecordsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|max:255',
+            'category_id' => 'required',
+            'content' => 'required',
+        ]);
+
+        StudyRecord::create([
+            'title' => $request->title,
+            'category' => $request->category,
+            'user_id' => auth()->id(),
+            'content' => $request->content,
+            'duration' => $request->duration,
+            'status' => $request->status,
+            'tag_id' => $request->tag_id,
+            'start_time' => $request->start_time,
+            'end_time' => $request->end_time,
+        ]);
+
+
+        return to_route('study_record.index')->with('success', '学習記録を作成しました！');
     }
 
     /**
@@ -53,8 +72,8 @@ class StudyRecordsController extends Controller
     public function show($id)
     {
 
-        $studyRecord = StudyRecord::find($id);
-        return view('study_record.show', compact('studyRecord'));
+        $StudyRecord = StudyRecord::find($id);
+        return view('study_record.show', compact('StudyRecord'));
 
     }
 
@@ -86,8 +105,11 @@ class StudyRecordsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StudyRecord $studyRecord)
-    {
-        //
-    }
+    public function destroy($id)
+{
+    $post = StudyRecord::findOrFail($id);
+    $post->delete();
+    return redirect()->route('study_record.index')->with('success', '投稿が削除されました。');
+}
+
 }

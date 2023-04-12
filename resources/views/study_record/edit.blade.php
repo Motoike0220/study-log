@@ -25,6 +25,11 @@
                         </button>
                     </div>
                 </form>
+
+                <form action="{{ route('study_record.destroy', $post->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                </form>
             </div>
         </div>
     </div>
