@@ -1,48 +1,60 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Study Record Detail') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-  <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-4">
-    <h1 class="text-2xl font-semibold mb-4">{{ $studyRecord->title }}</h1>
-    <p class="text-gray-600 text-sm mb-4">
-      {{ $studyRecord->created_at->format('Y/m/d H:i') }}
-      by {{ $studyRecord->user->name }}
-    </p>
-    <div class="prose prose-indigo max-w-full">
-      {!! $studyRecord->content !!}
-    </div>
-  </div>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+                <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+                    <div class="mt-8 text-2xl">
+                        {{ $studyRecord->title }}
+                    </div>
 
-  <div class="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-4">
-    <h2 class="text-xl font-semibold mb-4">{{ __('Comments') }}</h2>
-    @foreach ($studyRecord->comments as $comment)
-      <div class="bg-gray-100 rounded-lg p-4 mb-4">
-        <p class="text-gray-700 text-sm mb-2">
-          {{ $comment->created_at->format('Y/m/d H:i') }}
-          by {{ $comment->user->name }}
-        </p>
-        <div class="prose prose-indigo">
-          {!! $comment->content !!}
+                    <div class="mt-6 text-gray-500">
+                        {{ $studyRecord->created_at->format('Y/m/d H:i') }}
+                    </div>
+
+                    <div class="mt-6">
+                        {{ $studyRecord->content }}
+                    </div>
+
+                    <div class="mt-6">
+                        <span class="font-bold">Duration: </span>{{ $studyRecord->duration }}
+                    </div>
+
+                    <div class="mt-6">
+                        <span class="font-bold">Status: </span>
+                        @if($studyRecord->status == 1)
+                            <span class="text-green-500">Completed</span>
+                        @else
+                            <span class="text-red-500">Not Completed</span>
+                        @endif
+                    </div>
+
+                    <div class="mt-6">
+                        <span class="font-bold">Tag: </span>{{ $studyRecord->tag}}
+                    </div>
+
+                    <div class="mt-6">
+                        <span class="font-bold">Start Time: </span>{{ $studyRecord->start_time }}
+                    </div>
+
+                    <div class="mt-6">
+                        <span class="font-bold">End Time: </span>{{ $studyRecord->end_time }}
+                    </div>
+
+                    <div class="mt-6">
+                        <a href="{{ route('study_record.edit',$studyRecord->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Edit
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    @endforeach
-  </div>
+    </div>
+</x-app-layout>
 
-  <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
-    <h2 class="text-xl font-semibold mb-4">{{ __('Add a Comment') }}</h2>
-    <form action="{{ route('comments.store') }}" method="POST">
-      @csrf
-      <input type="hidden" name="study_record_id" value="{{ $studyRecord->id }}">
-      <div class="mb-4">
-        <label class="block text-gray-700 font-semibold mb-2" for="content">
-          {{ __('Content') }}
-        </label>
-        <textarea class="form-textarea block w-full" name="content" rows="5"></textarea>
-      </div>
-      <div class="flex justify-end">
-        <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">
-          {{ __('Post') }}
-        </button>
-      </div>
-    </form>
-  </div>
-@endsection
+

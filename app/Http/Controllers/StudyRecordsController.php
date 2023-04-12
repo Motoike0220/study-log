@@ -4,16 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\StudyRecord;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class StudyRecordsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $post = StudyRecord::paginate(6);
-        return view ('study_record.index', compact('post'));
+        $my_records = StudyRecord::where('user_id', Auth::id())->get();
+        return view ('study_record.index', compact('my_records'));
+
+        $keyword = $request->input('keyword');
+
+        // if($keyword)
+        // {
+        //     $keyword = $request->input('keyword');
+        //     $target = $request->input('target');
+
+        //     $posts = StudyRecordsController::when($keyword, function ($query) use ($keyword, $target) {
+        //     return $query->where($target, 'like', '%'.$keyword.'%');
+        //     })->orderBy('created_at', 'desc')->get();
+
+        //     return view('study_record.index', compact('posts'));
+        // }
+
     }
 
     /**
@@ -35,29 +50,38 @@ class StudyRecordsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(StudyRecord $studyRecord)
+    public function show($id)
     {
 
-            $studyRecord = StudyRecord::find($id);
-            return view('study_record.show', ['studyRecord' => $studyRecord]);
+        $studyRecord = StudyRecord::find($id);
+        return view('study_record.show', compact('studyRecord'));
 
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StudyRecord $studyRecord)
+    public function edit($id)
     {
-        //
+        $post = StudyRecord::findOrFail($id);
+
+        return view('study_record.edit', compact('post'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $post = StudyRecord::findOrFail($id);
+
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->save();
+
+        return redirect()->route('study_record.show', $post->id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, StudyRecord $studyRecord)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.

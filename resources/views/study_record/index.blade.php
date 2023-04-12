@@ -1,31 +1,51 @@
+<!-- resources/views/my_page.blade.php -->
 <x-app-layout>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- 以下、レコードを繰り返し表示するためのBladeのコード -->
-        @foreach ($post as $record)
-          <!-- タイル部分のデザイン -->
-          <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl">
-            <!-- 画像部分（今回はなし） -->
-            <div class="h-56 bg-gray-400"></div>
-            <!-- コンテンツ部分 -->
-            <div class="p-4">
-              <!-- タイトル -->
-              <h2 class="text-2xl font-bold mb-2">{{ $record->title }}</h2>
-              <!-- 投稿者名 -->
-              <div class="flex items-center text-gray-700 mb-4">
-                <svg class="w-8 h-8 rounded-full mr-2" viewBox="0 0 24 24">
-                  <path fill="currentColor" d="M12 12a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0-8a7 7 0 0 0-7 7c0 4.418 3.582 8 8 8s8-3.582 8-8a7 7 0 0 0-7-7z"/>
-                  <path fill="currentColor" d="M17.649 17.652a9.988 9.988 0 0 1-5.648 1.405 10.006 10.006 0 0 1-9.859-9.86 9.988 9.988 0 0 1 1.405-5.648A7 7 0 0 1 12 3a7 7 0 0 1 5.648 2.828c1.558 2.149 1.984 4.987 1.002 7.441zM12 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
-                </svg>
-                <span>{{ $record->user->name }}</span>
-              </div>
-              <!-- 投稿の一部 -->
-              <p class="text-gray-700 text-base">{{ substr($record->content, 0, 100) }}</p>
-            </div>
+    <x-slot name="header">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('My Page') }}
+      </h2>
+    </x-slot>
+
+    <div class="py-12">
+      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
+          <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
+            <h1 class="text-2xl font-bold mb-4">My Records</h1>
+            <ul>
+              @foreach($my_records as $record)
+              <li>
+                <a href="{{ route('study_record.show', $record->id) }}">{{ $record->title }}</a>
+              </li>
+              @endforeach
+            </ul>
           </div>
-        @endforeach
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center">
+        <form method="GET" action="#" class="flex flex-wrap gap-4 items-center justify-center">
+            <div>
+              <label for="target" class="sr-only">検索対象</label>
+              <select name="target" id="target" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                <option value="title">タイトル</option>
+                <option value="body">本文</option>
+              </select>
+            </div>
+            <div>
+              <label for="keyword" class="sr-only">キーワード</label>
+              <input type="text" name="keyword" id="keyword" placeholder="キーワードを入力してください" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+            </div>
+            <div>
+              <button type="submit" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                検索
+              </button>
+            </div>
+          </form>
       </div>
 
-      <div class="mt-4">
-        {{ $post->links() }}
-    </div>
-</x-app-layout>
+      <a href="{{ route('study_record.create')}}">投稿</a>
+
+
+  </x-app-layout>
+

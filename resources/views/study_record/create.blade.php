@@ -1,23 +1,9 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>記録作成</title>
-</head>
-<body>
+<x-app-layout>
+    <x-slot name="header">
+      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        {{ __('My Page') }}
+      </h2>
+    </x-slot>
     <div class="flex justify-center">
         <div class="w-full md:w-2/3 lg:w-1/2 bg-white shadow-md rounded-lg p-6 mt-8">
           <form action="#" method="POST">
@@ -62,5 +48,5 @@
             </div>
             <div class="mb-6">
               <label for="end_time" class="block text-gray-700 font-bold mb-2">終了時間:</label>
-</body>
-</html>
+
+            </x-app-layout>
