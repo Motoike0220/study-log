@@ -44,11 +44,6 @@ class StudyRecordsController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|max:255',
-            'category_id' => 'required',
-            'content' => 'required',
-        ]);
 
         StudyRecord::create([
             'title' => $request->title,
@@ -63,7 +58,7 @@ class StudyRecordsController extends Controller
         ]);
 
 
-        return to_route('study_record.index')->with('success', '学習記録を作成しました！');
+        return to_route('study_record.index');
     }
 
     /**
@@ -72,8 +67,8 @@ class StudyRecordsController extends Controller
     public function show($id)
     {
 
-        $StudyRecord = StudyRecord::find($id);
-        return view('study_record.show', compact('StudyRecord'));
+        $studyRecord = StudyRecord::find($id);
+        return view('study_record.show', compact('studyRecord'));
 
     }
 
