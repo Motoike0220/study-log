@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StudyRecordsController;
+use App\Http\Controllers\UserController;
 use App\Models\StudyRecords;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +26,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
 Route::prefix('study_record')
 ->middleware(['auth'])//ミドルウェアで認証する
 ->controller(StudyRecordsController::class)//同じコントローラーを使う
@@ -38,10 +46,8 @@ Route::prefix('study_record')
     Route::post('/{id}/destroy','destroy')->name('destroy');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+Route::middleware(['auth'])->get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');
+
+
 
 require __DIR__.'/auth.php';
