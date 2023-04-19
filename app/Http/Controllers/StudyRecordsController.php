@@ -66,10 +66,8 @@ class StudyRecordsController extends Controller
      */
     public function show($id)
     {
-
         $studyRecord = StudyRecord::find($id);
         return view('study_record.show', compact('studyRecord'));
-
     }
 
     /**
@@ -101,10 +99,15 @@ class StudyRecordsController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-{
-    $post = StudyRecord::findOrFail($id);
-    $post->delete();
-    return redirect()->route('study_record.index')->with('success', '投稿が削除されました。');
-}
+    {
+        $post = StudyRecord::findOrFail($id);
+        $post->delete();
+        return redirect()->route('study_record.index')->with('success', '投稿が削除されました。');
+    }
+
+    public function search()
+    {
+        return view ('study_record.search');
+    }
 
 }

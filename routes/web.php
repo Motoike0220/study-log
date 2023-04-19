@@ -44,6 +44,7 @@ Route::prefix('study_record')
     Route::get('/{id}/edit','edit')->name('edit');
     Route::post('/{id}','update')->name('update');
     Route::post('/{id}/destroy','destroy')->name('destroy');
+    Route::get('/search','search')->name('search');
 });
 
 Route::middleware(['auth'])->get('/users/{user_id}', [UserController::class, 'show'])->name('users.show');

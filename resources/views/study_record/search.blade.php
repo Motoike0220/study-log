@@ -1,28 +1,5 @@
-<!-- resources/views/my_page.blade.php -->
 <x-app-layout>
-    <x-slot name="header">
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        {{ __('My Page') }}
-      </h2>
-    </x-slot>
-
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
-            <h1 class="text-2xl font-bold mb-4">My Records</h1>
-            <ul>
-              @foreach($my_records as $record)
-              <li>
-                <a href="{{ route('study_record.show', $record->id) }}">{{ $record->title }}</a>
-              </li>
-              @endforeach
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-
+<div class="flex items-center justify-center">
     <form method="GET" action="#" class="flex flex-wrap gap-4 items-center justify-center">
         <div>
           <label for="target" class="sr-only">検索対象</label>
@@ -42,9 +19,4 @@
         </div>
       </form>
   </div>
-
-      <a href="{{ route('study_record.create')}}">投稿</a>
-      <a href="{{ route('study_record.search')}}">検索</a>
-
-  </x-app-layout>
-
+</x-app-layout>
