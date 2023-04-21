@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class StudyRecordsController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      */
@@ -37,6 +38,14 @@ class StudyRecordsController extends Controller
     public function create()
     {
         return view ('study_record.create');
+    }
+
+    /**
+     * Show the form for search resource.
+     */
+    public function search()
+    {
+        return view ('study_record.search');
     }
 
     /**
@@ -103,11 +112,6 @@ class StudyRecordsController extends Controller
         $post = StudyRecord::findOrFail($id);
         $post->delete();
         return redirect()->route('study_record.index')->with('success', '投稿が削除されました。');
-    }
-
-    public function search()
-    {
-        return view ('study_record.search');
     }
 
 }
